@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <style>
+        h1
+        {
+            padding: 1%;
+            background-image:linear-gradient(rgb(212, 64, 64),rgb(207, 207, 61));
+            margin-top: 1%;
+            text-align: center;
+        }
+        #inp
+        {
+            box-shadow: 0 0 30px rgb(220, 65, 114), 0 0 30pxrgb(220, 126, 68);
+        font-size: medium;
+    margin-top: 3%;
+    color: rgb(0, 0, 0);
+    margin-bottom: 6px;
+    border-radius: 30px;
+    text-align: center;
+    width: 16%;
+    padding: .8%;
+    margin-left: 41%;
+        }
+#but
+{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 30px aqua, 0 0 30px aqua;
+    color: rgb(0, 0, 0);
+    margin-bottom: 6px;
+    text-align: center;
+    padding: 0.7%;
+    font-size:x-large;
+    border-radius: 100%;
+}
+#but1{
+    margin-top: -3.5%;
+    margin-left: 58%;
+}
+.main
+{
+    height: 720px;
+    background-image: url("https://images.pexels.com/photos/2341830/pexels-photo-2341830.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+}
+.one
+{
+    margin-top: 3%;
+    font-size: large;
+    color: rgb(0, 238, 255);
+   margin-left: 42%;
+
+}
+#info
+{
+    margin-top: 1.5%;
+    margin-left: -3.5%;
+    font-size:xx-large;
+    color: rgb(255, 255, 0);
+}
+#temp
+{
+    margin-top: 1.5%;
+    font-size: x-large;
+    color: rgb(255, 0, 217);
+}
+h3{
+    margin-top: -20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        
+        <h1>Find The Weather ?</h1>
+
+    <input type="search" id="inp" placeholder="ENTER YOUR CITY NAME">
+    <div id="but1"> 
+
+    <button onclick="fun()" id="but"><b>&#128269</b></button><br>
+    </div>
+
+    <div class="one">
+    <h2><span id="info" ></span></h2><br>
+    <h3><span id="temp" ></span></h3><br>
+    <h3><span id="min" ></span></h3><br>
+    <h3><span id="max" ></span></h3><br>
+    <h3><span id="desc" ></span></h3><br>
+    <h3><span id="press"></span></h3><br>
+    <h3><span id="humi"></span></h3><br>
+    <h3><span id="sea" ></span></h3><br>
+    <h3><span id="grd" ></span></h3><br>
+    <h3><span id="cou" ></span></h3>
+</div>
+</div>
+
+<script>
+    async function fun()
+    {
+        const cityName = document.getElementById("inp").value;
+
+        const api = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=efb4653294f01e9dcd992ca4d67bea84`;
+
+        const a=await fetch(api);
+        const data=await a.json();
+
+        document.getElementById("info").innerHTML=`Weather in ${cityName} is`;          // ` ` template string
+
+        document.getElementById("temp").innerHTML=`Temperature : ${Math.trunc(data.main.temp/10)} ℃`;
+
+        document.getElementById("min").innerHTML=`Temperature Min: ${Math.trunc(data.main.temp_min/10)} ℃`;
+
+        document.getElementById("max").innerHTML=`Temperature Max : ${Math.trunc(data.main.temp/10)} ℃`;
+
+        document.getElementById("desc").innerHTML=`Description : ${(data.weather[0].description)}`;
+
+        document.getElementById("press").innerHTML=`Pressure : ${Math.trunc(data.main.pressure/ 1000)} kg/m^3`;
+
+        document.getElementById("humi").innerHTML=`Humidity : ${(data.main.humidity)} %`;
+
+        document.getElementById("sea").innerHTML=`Sea-Level : ${(data.main.sea_level/10)}`;
+
+        document.getElementById("grd").innerHTML=`Ground-Level : ${(data.main.grnd_level/10)}`;
+
+        document.getElementById("cou").innerHTML=`Country : ${(data.sys.country)}`;
+
+    }
+
+</script>
+
+</body>
+</html>
